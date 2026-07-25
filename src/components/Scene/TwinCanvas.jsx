@@ -2,6 +2,7 @@ import { Suspense } from 'react'
 import { Canvas } from '@react-three/fiber'
 import { CameraController } from '../Camera/CameraController'
 import { SceneLighting } from '../Lighting/SceneLighting'
+import { PostProcessing } from './PostProcessing'
 import { Ground } from '../../world/Ground/Ground'
 import { Roads } from '../../world/Roads/Roads'
 import { Trees } from '../../world/Trees/Trees'
@@ -27,6 +28,7 @@ export function TwinCanvas() {
             <Building />
             <Hotspots />
             <CameraController />
+            <PostProcessing />
           </Suspense>
         </Canvas>
       </CanvasErrorBoundary>

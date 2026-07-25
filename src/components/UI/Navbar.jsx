@@ -3,10 +3,16 @@ import { useTwinStore } from '../../store/useTwinStore'
 export function Navbar() {
   const cameraMode = useTwinStore((state) => state.cameraMode)
   const setCameraMode = useTwinStore((state) => state.setCameraMode)
+  const setSelectedNode = useTwinStore((state) => state.setSelectedNode)
   const sidebarOpen = useTwinStore((state) => state.sidebarOpen)
   const toggleSidebar = useTwinStore((state) => state.toggleSidebar)
   const infoPanelOpen = useTwinStore((state) => state.infoPanelOpen)
   const toggleInfoPanel = useTwinStore((state) => state.toggleInfoPanel)
+
+  const handleModeChange = (mode) => {
+    setSelectedNode(null)
+    setCameraMode(mode)
+  }
 
   return (
     <header className="navbar-container">
@@ -27,21 +33,27 @@ export function Navbar() {
         <div className="camera-presets">
           <button
             className={`preset-btn ${cameraMode === 'orbit' ? 'active' : ''}`}
-            onClick={() => setCameraMode('orbit')}
+            onClick={() => handleModeChange('orbit')}
           >
             Orbit
           </button>
           <button
             className={`preset-btn ${cameraMode === 'top' ? 'active' : ''}`}
-            onClick={() => setCameraMode('top')}
+            onClick={() => handleModeChange('top')}
           >
             Top GIS
           </button>
           <button
             className={`preset-btn ${cameraMode === 'front' ? 'active' : ''}`}
-            onClick={() => setCameraMode('front')}
+            onClick={() => handleModeChange('front')}
           >
             Elevation
+          </button>
+          <button
+            className={`preset-btn ${cameraMode === 'tour' ? 'active' : ''}`}
+            onClick={() => handleModeChange('tour')}
+          >
+            🎬 Auto-Tour
           </button>
         </div>
       </div>

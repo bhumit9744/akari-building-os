@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { Html } from '@react-three/drei'
 import { useTwinStore } from '../../store/useTwinStore'
+import { materials } from '../../core/materials/materials'
 
 function BuildingFloor({ level, yPos, height, label, isSelected, isHovered, onHover, onClick, wireframe }) {
   const activeFloor = useTwinStore((state) => state.activeFloor)
@@ -14,6 +15,11 @@ function BuildingFloor({ level, yPos, height, label, isSelected, isHovered, onHo
       <mesh
         castShadow
         receiveShadow
+        material={
+          isSelected
+            ? materials.slabSelected
+            : materials.slabConcrete
+        }
         onPointerOver={(e) => {
           e.stopPropagation()
           onHover(level)
@@ -25,34 +31,26 @@ function BuildingFloor({ level, yPos, height, label, isSelected, isHovered, onHo
         }}
       >
         <boxGeometry args={[16, 0.4, 12]} />
-        <meshStandardMaterial
-          color={isSelected ? '#3b82f6' : isHovered ? '#60a5fa' : '#1e293b'}
-          roughness={0.3}
-          metalness={0.8}
-          wireframe={wireframe}
-        />
       </mesh>
 
       {/* Glass Facade Curtain Wall */}
-      <mesh position={[0, height / 2, 0]}>
+      <mesh
+        position={[0, height / 2, 0]}
+        material={isHovered ? materials.glassHover : materials.glass}
+      >
         <boxGeometry args={[15.6, height - 0.4, 11.6]} />
-        <meshPhysicalMaterial
-          color={isHovered ? '#93c5fd' : '#38bdf8'}
-          transparent
-          opacity={0.32}
-          roughness={0.1}
-          transmission={0.85}
-          ior={1.4}
-          wireframe={wireframe}
-        />
       </mesh>
 
       {/* Structural Steel Columns */}
       {[-6.5, 6.5].map((x) =>
         [-4.5, 4.5].map((z) => (
-          <mesh key={`${x}-${z}`} position={[x, height / 2, z]} castShadow>
+          <mesh
+            key={`${x}-${z}`}
+            position={[x, height / 2, z]}
+            castShadow
+            material={materials.steelColumn}
+          >
             <cylinderGeometry args={[0.25, 0.25, height - 0.4, 16]} />
-            <meshStandardMaterial color="#475569" metalness={0.95} roughness={0.1} />
           </mesh>
         )),
       )}
@@ -116,13 +114,23 @@ export function Building() {
         />
       ))}
 
-      {/* Helipad Marking on Roof */}
+      {/* Solar Panel Array on Roof */}
       {(activeFloor === 'all' || activeFloor === 'Roof') && (
-        <group position={[0, 11.75, 0]}>
-          <mesh rotation={[-Math.PI / 2, 0, 0]}>
-            <ringGeometry args={[2.5, 2.8, 32]} />
-            <meshBasicMaterial color="#f59e0b" />
+        <group position={[0, 11.8, 0]}>
+          <mesh position={[-4, 0.1, 0]} material={materials.solarPanel} castShadow>
+            <boxGeometry args={[5, 0.1, 8]} />
           </mesh>
+          <mesh position={[4, 0.1, 0]} material={materials.solarPanel} castShadow>
+            <boxGeometry args={[5, 0.1, 8]} />
+          </mesh>
+
+          {/* Helipad Marking */}
+          <group position={[0, 0.05, 0]}>
+            <mesh rotation={[-Math.PI / 2, 0, 0]}>
+              <ringGeometry args={[1.8, 2.1, 32]} />
+              <meshBasicMaterial color="#f59e0b" />
+            </mesh>
+          </group>
         </group>
       )}
     </group>
