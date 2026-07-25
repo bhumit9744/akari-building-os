@@ -1,8 +1,9 @@
 import { create } from 'zustand'
+import { SCENE_GRAPH } from '../engine/selection/sceneGraph'
 
 export const useTwinStore = create((set) => ({
   // Camera & Navigation State
-  cameraMode: 'orbit', // 'orbit' | 'top' | 'front' | 'fly'
+  cameraMode: 'orbit', // 'orbit' | 'top' | 'front' | 'tour'
   setCameraMode: (mode) => set({ cameraMode: mode }),
 
   // Layer Toggles
@@ -21,15 +22,33 @@ export const useTwinStore = create((set) => ({
   wireframeMode: false,
   toggleWireframe: () => set((state) => ({ wireframeMode: !state.wireframeMode })),
 
-  environmentPreset: 'city', // 'city' | 'night' | 'sunset' | 'dawn'
+  // Developer Performance Stats
+  showPerfStats: false,
+  togglePerfStats: () => set((state) => ({ showPerfStats: !state.showPerfStats })),
+
+  // Section View Clipping Plane
+  clippingEnabled: false,
+  toggleClipping: () => set((state) => ({ clippingEnabled: !state.clippingEnabled })),
+  clippingHeight: 8.0, // 0 to 15 meters
+  setClippingHeight: (height) => set({ clippingHeight: height }),
+
+  environmentPreset: 'city',
   setEnvironmentPreset: (preset) => set({ environmentPreset: preset }),
 
   // Active Building / Selection
-  activeFloor: 'all', // 'all' | 'L1' | 'L2' | 'L3' | 'Roof'
+  activeFloor: 'all',
   setActiveFloor: (floor) => set({ activeFloor: floor }),
 
   selectedNode: null,
-  setSelectedNode: (node) => set({ selectedNode: node }),
+  setSelectedNode: (node) => {
+    if (!node) {
+      set({ selectedNode: null })
+      return
+    }
+    const graphKey = node.graphId || (node.id ? `hotspot.${node.id}` : `building.${node.level?.toLowerCase()}`)
+    const meta = SCENE_GRAPH[graphKey] || node
+    set({ selectedNode: { ...node, ...meta } })
+  },
 
   // Panel Visibilities
   sidebarOpen: true,

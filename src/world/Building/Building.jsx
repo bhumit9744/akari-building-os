@@ -3,7 +3,7 @@ import { Html } from '@react-three/drei'
 import { useTwinStore } from '../../store/useTwinStore'
 import { materials } from '../../core/materials/materials'
 
-function BuildingFloor({ level, yPos, height, label, isSelected, isHovered, onHover, onClick, wireframe }) {
+function BuildingFloor({ level, graphId, yPos, height, label, isSelected, isHovered, onHover, onClick, wireframe, clippingPlanes }) {
   const activeFloor = useTwinStore((state) => state.activeFloor)
   const isFiltered = activeFloor !== 'all' && activeFloor !== level
 
@@ -15,11 +15,6 @@ function BuildingFloor({ level, yPos, height, label, isSelected, isHovered, onHo
       <mesh
         castShadow
         receiveShadow
-        material={
-          isSelected
-            ? materials.slabSelected
-            : materials.slabConcrete
-        }
         onPointerOver={(e) => {
           e.stopPropagation()
           onHover(level)
@@ -27,30 +22,37 @@ function BuildingFloor({ level, yPos, height, label, isSelected, isHovered, onHo
         onPointerOut={() => onHover(null)}
         onClick={(e) => {
           e.stopPropagation()
-          onClick(level)
+          onClick(level, graphId)
         }}
       >
         <boxGeometry args={[16, 0.4, 12]} />
+        <meshStandardMaterial
+          {...(isSelected ? materials.slabSelected : materials.slabConcrete)}
+          clippingPlanes={clippingPlanes}
+          clipShadows
+          wireframe={wireframe}
+        />
       </mesh>
 
       {/* Glass Facade Curtain Wall */}
-      <mesh
-        position={[0, height / 2, 0]}
-        material={isHovered ? materials.glassHover : materials.glass}
-      >
+      <mesh position={[0, height / 2, 0]}>
         <boxGeometry args={[15.6, height - 0.4, 11.6]} />
+        <meshPhysicalMaterial
+          {...(isHovered ? materials.glassHover : materials.glass)}
+          clippingPlanes={clippingPlanes}
+          wireframe={wireframe}
+        />
       </mesh>
 
       {/* Structural Steel Columns */}
       {[-6.5, 6.5].map((x) =>
         [-4.5, 4.5].map((z) => (
-          <mesh
-            key={`${x}-${z}`}
-            position={[x, height / 2, z]}
-            castShadow
-            material={materials.steelColumn}
-          >
+          <mesh key={`${x}-${z}`} position={[x, height / 2, z]} castShadow>
             <cylinderGeometry args={[0.25, 0.25, height - 0.4, 16]} />
+            <meshStandardMaterial
+              {...materials.steelColumn}
+              clippingPlanes={clippingPlanes}
+            />
           </mesh>
         )),
       )}
@@ -58,7 +60,7 @@ function BuildingFloor({ level, yPos, height, label, isSelected, isHovered, onHo
       {/* Level Label Overlay Pin */}
       <Html position={[9, height / 2, 0]} center distanceFactor={28}>
         <div
-          onClick={() => onClick(level)}
+          onClick={() => onClick(level, graphId)}
           style={{
             background: isSelected ? 'rgba(59, 130, 246, 0.95)' : 'rgba(15, 23, 42, 0.85)',
             color: '#fff',
@@ -88,16 +90,16 @@ export function Building() {
   const setSelectedNode = useTwinStore((state) => state.setSelectedNode)
 
   const floors = [
-    { level: 'L1', yPos: 0.2, height: 3.8, label: 'L1 — Lobby & Security' },
-    { level: 'L2', yPos: 4.0, height: 3.8, label: 'L2 — Engineering & NOC' },
-    { level: 'L3', yPos: 7.8, height: 3.8, label: 'L3 — AI & Executive Hub' },
-    { level: 'Roof', yPos: 11.6, height: 1.8, label: 'Roof — Solar & Helipad' },
+    { level: 'L1', graphId: 'building.l1', yPos: 0.2, height: 3.8, label: 'L1 — Lobby & Security' },
+    { level: 'L2', graphId: 'building.l2', yPos: 4.0, height: 3.8, label: 'L2 — Engineering & NOC' },
+    { level: 'L3', graphId: 'building.l3', yPos: 7.8, height: 3.8, label: 'L3 — AI & Executive Hub' },
+    { level: 'Roof', graphId: 'building.roof', yPos: 11.6, height: 1.8, label: 'Roof — Solar & Helipad' },
   ]
 
-  const handleSelectFloor = (level) => {
+  const handleSelectFloor = (level, graphId) => {
     setActiveFloor(level)
     const target = floors.find((f) => f.level === level)
-    setSelectedNode(target ? { type: 'Floor', ...target } : null)
+    setSelectedNode(target ? { type: 'Floor', graphId, ...target } : null)
   }
 
   return (

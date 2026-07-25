@@ -3,6 +3,8 @@ import { Canvas } from '@react-three/fiber'
 import { CameraController } from '../Camera/CameraController'
 import { SceneLighting } from '../Lighting/SceneLighting'
 import { PostProcessing } from './PostProcessing'
+import { PerformanceStats } from '../../engine/performance/PerformanceStats'
+import { SectionClipping } from '../../engine/renderer/SectionClipping'
 import { Ground } from '../../world/Ground/Ground'
 import { Roads } from '../../world/Roads/Roads'
 import { Trees } from '../../world/Trees/Trees'
@@ -21,6 +23,8 @@ export function TwinCanvas() {
         >
           <color attach="background" args={['#090d16']} />
           <Suspense fallback={null}>
+            <PerformanceStats />
+            <SectionClipping />
             <SceneLighting />
             <Ground />
             <Roads />

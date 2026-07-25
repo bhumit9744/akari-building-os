@@ -12,6 +12,15 @@ export function Sidebar() {
   const toggleTrees = useTwinStore((state) => state.toggleTrees)
   const wireframeMode = useTwinStore((state) => state.wireframeMode)
   const toggleWireframe = useTwinStore((state) => state.toggleWireframe)
+  const showPerfStats = useTwinStore((state) => state.showPerfStats)
+  const togglePerfStats = useTwinStore((state) => state.togglePerfStats)
+
+  // Clipping Plane State
+  const clippingEnabled = useTwinStore((state) => state.clippingEnabled)
+  const toggleClipping = useTwinStore((state) => state.toggleClipping)
+  const clippingHeight = useTwinStore((state) => state.clippingHeight)
+  const setClippingHeight = useTwinStore((state) => state.setClippingHeight)
+
   const activeFloor = useTwinStore((state) => state.activeFloor)
   const setActiveFloor = useTwinStore((state) => state.setActiveFloor)
   const environmentPreset = useTwinStore((state) => state.environmentPreset)
@@ -40,6 +49,31 @@ export function Sidebar() {
       </div>
 
       <div className="sidebar-section">
+        <h3>Section View Clipping</h3>
+        <label className="toggle-row">
+          <span>Enable Section Cut</span>
+          <input type="checkbox" checked={clippingEnabled} onChange={toggleClipping} />
+        </label>
+        {clippingEnabled && (
+          <div className="slider-row" style={{ marginTop: '8px' }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '11px', color: '#94a3b8', marginBottom: '4px' }}>
+              <span>Cut Height</span>
+              <span>{clippingHeight.toFixed(1)} m</span>
+            </div>
+            <input
+              type="range"
+              min="0"
+              max="15"
+              step="0.2"
+              value={clippingHeight}
+              onChange={(e) => setClippingHeight(parseFloat(e.target.value))}
+              style={{ width: '100%', accentColor: '#3b82f6', cursor: 'pointer' }}
+            />
+          </div>
+        )}
+      </div>
+
+      <div className="sidebar-section">
         <h3>Viewport Layers</h3>
         <label className="toggle-row">
           <span>Spatial Grid</span>
@@ -60,6 +94,10 @@ export function Sidebar() {
         <label className="toggle-row">
           <span>Wireframe X-Ray</span>
           <input type="checkbox" checked={wireframeMode} onChange={toggleWireframe} />
+        </label>
+        <label className="toggle-row">
+          <span>Performance Monitor</span>
+          <input type="checkbox" checked={showPerfStats} onChange={togglePerfStats} />
         </label>
       </div>
 
