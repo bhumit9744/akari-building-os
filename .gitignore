@@ -12,6 +12,10 @@ dist
 dist-ssr
 *.local
 
+# Large 3D Assets
+public/models/*.glb
+public/models/*.gltf
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json
