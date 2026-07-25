@@ -12,6 +12,12 @@ export const useTwinStore = create((set) => ({
   showShadows: true,
   toggleShadows: () => set((state) => ({ showShadows: !state.showShadows })),
 
+  showHotspots: true,
+  toggleHotspots: () => set((state) => ({ showHotspots: !state.showHotspots })),
+
+  showTrees: true,
+  toggleTrees: () => set((state) => ({ showTrees: !state.showTrees })),
+
   wireframeMode: false,
   toggleWireframe: () => set((state) => ({ wireframeMode: !state.wireframeMode })),
 
@@ -32,7 +38,16 @@ export const useTwinStore = create((set) => ({
   infoPanelOpen: true,
   toggleInfoPanel: () => set((state) => ({ infoPanelOpen: !state.infoPanelOpen })),
 
-  // Telemetry & Stats
-  fps: 60,
-  setFps: (fps) => set({ fps }),
+  // IoT Telemetry Stream
+  telemetry: {
+    hvacTemp: 21.8,
+    occupancy: 84,
+    maxOccupancy: 120,
+    powerKw: 14.2,
+    solarGenerationKw: 9.4,
+    aqi: 98,
+    chillerStatus: 'Optimal',
+    accessControl: 'Secured',
+  },
+  setTelemetryData: (data) => set({ telemetry: { ...data } }),
 }))

@@ -6,6 +6,10 @@ export function Sidebar() {
   const toggleGrid = useTwinStore((state) => state.toggleGrid)
   const showShadows = useTwinStore((state) => state.showShadows)
   const toggleShadows = useTwinStore((state) => state.toggleShadows)
+  const showHotspots = useTwinStore((state) => state.showHotspots)
+  const toggleHotspots = useTwinStore((state) => state.toggleHotspots)
+  const showTrees = useTwinStore((state) => state.showTrees)
+  const toggleTrees = useTwinStore((state) => state.toggleTrees)
   const wireframeMode = useTwinStore((state) => state.wireframeMode)
   const toggleWireframe = useTwinStore((state) => state.toggleWireframe)
   const activeFloor = useTwinStore((state) => state.activeFloor)
@@ -38,12 +42,20 @@ export function Sidebar() {
       <div className="sidebar-section">
         <h3>Viewport Layers</h3>
         <label className="toggle-row">
-          <span>Spatial Grid Plane</span>
+          <span>Spatial Grid</span>
           <input type="checkbox" checked={showGrid} onChange={toggleGrid} />
         </label>
         <label className="toggle-row">
-          <span>Realtime Shadows</span>
+          <span>Shadow Engine</span>
           <input type="checkbox" checked={showShadows} onChange={toggleShadows} />
+        </label>
+        <label className="toggle-row">
+          <span>3D Hotspots</span>
+          <input type="checkbox" checked={showHotspots} onChange={toggleHotspots} />
+        </label>
+        <label className="toggle-row">
+          <span>Campus Foliage</span>
+          <input type="checkbox" checked={showTrees} onChange={toggleTrees} />
         </label>
         <label className="toggle-row">
           <span>Wireframe X-Ray</span>
