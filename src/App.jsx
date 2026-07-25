@@ -2,6 +2,7 @@ import { TwinCanvas } from './components/Scene/TwinCanvas'
 import { Navbar } from './components/UI/Navbar'
 import { Sidebar } from './components/UI/Sidebar'
 import { InfoPanel } from './components/UI/InfoPanel'
+import { TimeMachineSlider } from './components/UI/TimeMachineSlider'
 
 function App() {
   return (
@@ -9,6 +10,7 @@ function App() {
       <Navbar />
       <Sidebar />
       <InfoPanel />
+      <TimeMachineSlider />
       <TwinCanvas />
     </main>
   )

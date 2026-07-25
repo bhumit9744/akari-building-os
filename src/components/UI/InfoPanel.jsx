@@ -1,6 +1,7 @@
-import { useEffect } from 'react'
+import { useEffect, useMemo } from 'react'
 import { useTwinStore } from '../../store/useTwinStore'
 import { telemetrySimulator } from '../../telemetry/simulator'
+import { analyzeBuildingHealth } from '../../services/ai/aiAnalytics'
 
 export function InfoPanel() {
   const infoPanelOpen = useTwinStore((state) => state.infoPanelOpen)
@@ -12,6 +13,9 @@ export function InfoPanel() {
     telemetrySimulator.start(2000)
     return () => telemetrySimulator.stop()
   }, [])
+
+  // Analyze Building Health using AI Analytics Service
+  const aiReport = useMemo(() => analyzeBuildingHealth(telemetry), [telemetry])
 
   if (!infoPanelOpen) return null
 
@@ -25,6 +29,35 @@ export function InfoPanel() {
       </div>
 
       <div className="panel-content">
+        {/* AI Health Score Card */}
+        <div
+          className="metric-card"
+          style={{
+            background: 'linear-gradient(135deg, rgba(59, 130, 246, 0.15), rgba(6, 182, 212, 0.1))',
+            borderColor: 'rgba(59, 130, 246, 0.3)',
+          }}
+        >
+          <div className="metric-header">
+            <span>🤖 AI BUILDING INSIGHTS</span>
+            <span className="metric-value" style={{ color: '#38bdf8' }}>
+              {aiReport.healthScore}% HEALTH
+            </span>
+          </div>
+          {aiReport.anomalies.map((anom, idx) => (
+            <p
+              key={idx}
+              style={{
+                fontSize: '11px',
+                color: anom.type === 'WARNING' ? '#fbbf24' : '#60a5fa',
+                marginTop: '6px',
+                lineHeight: '1.3',
+              }}
+            >
+              💡 {anom.message}
+            </p>
+          ))}
+        </div>
+
         {selectedNode ? (
           <div className="metric-card">
             <div className="metric-header">
@@ -98,12 +131,6 @@ export function InfoPanel() {
               <span className="dot online"></span>
               <span>
                 Security: <b>{telemetry.accessControl}</b>
-              </span>
-            </li>
-            <li>
-              <span className="dot online"></span>
-              <span>
-                Fire Safety: <b>Armed & Secured</b>
               </span>
             </li>
           </ul>
