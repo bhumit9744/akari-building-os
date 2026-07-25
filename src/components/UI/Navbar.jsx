@@ -1,5 +1,6 @@
 import { useTwinStore } from '../../store/useTwinStore'
 import { projectManager, CAMPUS_REGISTRY } from '../../services/projects/ProjectManager'
+import { cameraDirector } from '../../engine/camera/CameraDirector'
 
 export function Navbar() {
   const cameraMode = useTwinStore((state) => state.cameraMode)
@@ -21,6 +22,10 @@ export function Navbar() {
     projectManager.loadCampus(e.target.value)
   }
 
+  const handleStartPresentation = () => {
+    cameraDirector.startCinematicTour()
+  }
+
   return (
     <header className="navbar-container">
       <div className="navbar-left">
@@ -31,7 +36,7 @@ export function Navbar() {
           <span className="brand-logo">🌌</span>
           <div className="brand-text">
             <h1 className="brand-title">AKARI</h1>
-            <span className="brand-subtitle">Digital Twin Platform v3.0</span>
+            <span className="brand-subtitle">Digital Twin Engine v3.5</span>
           </div>
         </div>
 
@@ -69,11 +74,8 @@ export function Navbar() {
           >
             Elevation
           </button>
-          <button
-            className={`preset-btn ${cameraMode === 'tour' ? 'active' : ''}`}
-            onClick={() => handleModeChange('tour')}
-          >
-            🎬 Auto-Tour
+          <button className="demo-btn" onClick={handleStartPresentation}>
+            🎬 Presentation Demo
           </button>
         </div>
       </div>
@@ -84,7 +86,7 @@ export function Navbar() {
         </button>
         <div className="status-badge">
           <span className="status-dot"></span>
-          <span>ENTERPRISE LIVE</span>
+          <span>CINEMATIC LIVE</span>
         </div>
         <button className="icon-btn" onClick={toggleInfoPanel} title="Toggle Info Drawer">
           {infoPanelOpen ? '▶' : '◀'}

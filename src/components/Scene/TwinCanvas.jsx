@@ -1,14 +1,15 @@
 import { Suspense } from 'react'
 import { Canvas } from '@react-three/fiber'
 import { CameraController } from '../Camera/CameraController'
-import { SceneLighting } from '../Lighting/SceneLighting'
 import { PostProcessing } from './PostProcessing'
 import { PerformanceStats } from '../../engine/performance/PerformanceStats'
 import { SectionClipping } from '../../engine/renderer/SectionClipping'
+import { SkySystem } from '../../engine/environment/SkySystem'
 import { GLBModel } from '../../engine/loaders/GLBModel'
 import { Ground } from '../../world/Ground/Ground'
 import { Roads } from '../../world/Roads/Roads'
 import { Trees } from '../../world/Trees/Trees'
+import { Vehicles } from '../../world/Vehicles/Vehicles'
 import { Hotspots } from '../../world/Hotspots/Hotspots'
 import { Annotations } from '../../world/Annotations/Annotations'
 import { CanvasErrorBoundary } from './CanvasErrorBoundary'
@@ -26,10 +27,11 @@ export function TwinCanvas() {
           <Suspense fallback={null}>
             <PerformanceStats />
             <SectionClipping />
-            <SceneLighting />
+            <SkySystem />
             <Ground />
             <Roads />
             <Trees />
+            <Vehicles />
             <GLBModel url="/models/building.glb" />
             <Hotspots />
             <Annotations />

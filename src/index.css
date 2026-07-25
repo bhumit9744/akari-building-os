@@ -34,6 +34,7 @@ body, html, #root {
 .sidebar-container,
 .infopanel-container,
 .timemachine-container,
+.timeofday-bar,
 .copilot-drawer {
   background: var(--panel-bg);
   backdrop-filter: blur(18px);
@@ -107,7 +108,7 @@ body, html, #root {
 }
 
 /* Controls & Buttons */
-.preset-btn, .floor-btn, .env-btn, .icon-btn, .live-btn, .copilot-btn {
+.preset-btn, .floor-btn, .env-btn, .icon-btn, .live-btn, .copilot-btn, .demo-btn {
   background: rgba(255, 255, 255, 0.05);
   border: 1px solid rgba(255, 255, 255, 0.1);
   color: var(--text-muted);
@@ -117,6 +118,19 @@ body, html, #root {
   font-weight: 500;
   cursor: pointer;
   transition: all 0.2s ease;
+}
+
+.demo-btn {
+  background: linear-gradient(135deg, rgba(245, 158, 11, 0.25), rgba(239, 68, 68, 0.25));
+  border-color: rgba(245, 158, 11, 0.5);
+  color: #fbbf24;
+  font-weight: 700;
+
+  &:hover {
+    background: linear-gradient(135deg, rgba(245, 158, 11, 0.4), rgba(239, 68, 68, 0.4));
+    color: #fff;
+    box-shadow: 0 0 14px rgba(245, 158, 11, 0.5);
+  }
 }
 
 .copilot-btn {
@@ -319,6 +333,36 @@ body, html, #root {
   border-radius: 8px;
   font-size: 12px;
   outline: none;
+}
+
+/* Time of Day Floating Bar */
+.timeofday-bar {
+  position: absolute;
+  top: 88px;
+  left: 290px;
+  height: 42px;
+  border-radius: 24px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 0 16px;
+}
+
+.sun-icon {
+  font-size: 18px;
+}
+
+.time-display {
+  font-size: 13px;
+  font-weight: 700;
+  font-family: monospace;
+  color: #f59e0b;
+}
+
+.sun-slider {
+  width: 140px;
+  accent-color: #f59e0b;
+  cursor: pointer;
 }
 
 /* Bottom Telemetry Time Machine Bar */

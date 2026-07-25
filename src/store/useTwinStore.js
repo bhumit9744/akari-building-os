@@ -8,6 +8,18 @@ export const useTwinStore = create((set) => ({
   activeCampus: CAMPUS_REGISTRY['akari-hq'],
   setActiveCampus: (campus) => set({ activeCampus: campus }),
 
+  // 24-Hour Environment Time State (Default 14:00 PM)
+  timeOfDay: 14.0,
+  isNight: false,
+  sunIntensity: 1.4,
+  setTimeOfDayState: (data) =>
+    set((state) => ({
+      timeOfDay: data.timeOfDay,
+      isNight: data.solar.isNight,
+      sunIntensity: data.solar.sunIntensity,
+      environmentPreset: data.solar.preset,
+    })),
+
   // Camera & Navigation State
   cameraMode: 'orbit', // 'orbit' | 'top' | 'front' | 'tour'
   setCameraMode: (mode) => set({ cameraMode: mode }),

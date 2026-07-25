@@ -3,6 +3,7 @@ import { Navbar } from './components/UI/Navbar'
 import { Sidebar } from './components/UI/Sidebar'
 import { InfoPanel } from './components/UI/InfoPanel'
 import { TimeMachineSlider } from './components/UI/TimeMachineSlider'
+import { TimeOfDaySlider } from './components/UI/TimeOfDaySlider'
 import { AICopilotModal } from './components/UI/AICopilotModal'
 
 function App() {
@@ -12,6 +13,7 @@ function App() {
       <Sidebar />
       <InfoPanel />
       <AICopilotModal />
+      <TimeOfDaySlider />
       <TimeMachineSlider />
       <TwinCanvas />
     </main>
