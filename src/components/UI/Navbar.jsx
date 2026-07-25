@@ -1,17 +1,24 @@
 import { useTwinStore } from '../../store/useTwinStore'
+import { projectManager, CAMPUS_REGISTRY } from '../../services/projects/ProjectManager'
 
 export function Navbar() {
   const cameraMode = useTwinStore((state) => state.cameraMode)
   const setCameraMode = useTwinStore((state) => state.setCameraMode)
   const setSelectedNode = useTwinStore((state) => state.setSelectedNode)
+  const activeCampus = useTwinStore((state) => state.activeCampus)
   const sidebarOpen = useTwinStore((state) => state.sidebarOpen)
   const toggleSidebar = useTwinStore((state) => state.toggleSidebar)
   const infoPanelOpen = useTwinStore((state) => state.infoPanelOpen)
   const toggleInfoPanel = useTwinStore((state) => state.toggleInfoPanel)
+  const toggleAICopilot = useTwinStore((state) => state.toggleAICopilot)
 
   const handleModeChange = (mode) => {
     setSelectedNode(null)
     setCameraMode(mode)
+  }
+
+  const handleCampusChange = (e) => {
+    projectManager.loadCampus(e.target.value)
   }
 
   return (
@@ -24,9 +31,22 @@ export function Navbar() {
           <span className="brand-logo">🌌</span>
           <div className="brand-text">
             <h1 className="brand-title">AKARI</h1>
-            <span className="brand-subtitle">Digital Twin Engine v1.0</span>
+            <span className="brand-subtitle">Digital Twin Platform v3.0</span>
           </div>
         </div>
+
+        {/* Multi-Campus Selector */}
+        <select
+          value={activeCampus.id}
+          onChange={handleCampusChange}
+          className="campus-select"
+        >
+          {Object.values(CAMPUS_REGISTRY).map((c) => (
+            <option key={c.id} value={c.id}>
+              📍 {c.name} ({c.location})
+            </option>
+          ))}
+        </select>
       </div>
 
       <div className="navbar-center">
@@ -59,9 +79,12 @@ export function Navbar() {
       </div>
 
       <div className="navbar-right">
+        <button className="copilot-btn" onClick={toggleAICopilot}>
+          🤖 AI Copilot
+        </button>
         <div className="status-badge">
           <span className="status-dot"></span>
-          <span>LIVE TELEMETRY</span>
+          <span>ENTERPRISE LIVE</span>
         </div>
         <button className="icon-btn" onClick={toggleInfoPanel} title="Toggle Info Drawer">
           {infoPanelOpen ? '▶' : '◀'}

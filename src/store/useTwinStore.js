@@ -1,7 +1,13 @@
 import { create } from 'zustand'
 import { SCENE_GRAPH } from '../engine/selection/sceneGraph'
+import { annotationManager } from '../plugins/annotations/AnnotationManager'
+import { CAMPUS_REGISTRY } from '../services/projects/ProjectManager'
 
 export const useTwinStore = create((set) => ({
+  // Multi-Campus State
+  activeCampus: CAMPUS_REGISTRY['akari-hq'],
+  setActiveCampus: (campus) => set({ activeCampus: campus }),
+
   // Camera & Navigation State
   cameraMode: 'orbit', // 'orbit' | 'top' | 'front' | 'tour'
   setCameraMode: (mode) => set({ cameraMode: mode }),
@@ -19,6 +25,9 @@ export const useTwinStore = create((set) => ({
   showTrees: true,
   toggleTrees: () => set((state) => ({ showTrees: !state.showTrees })),
 
+  showAnnotations: true,
+  toggleAnnotations: () => set((state) => ({ showAnnotations: !state.showAnnotations })),
+
   wireframeMode: false,
   toggleWireframe: () => set((state) => ({ wireframeMode: !state.wireframeMode })),
 
@@ -29,7 +38,7 @@ export const useTwinStore = create((set) => ({
   // Section View Clipping Plane
   clippingEnabled: false,
   toggleClipping: () => set((state) => ({ clippingEnabled: !state.clippingEnabled })),
-  clippingHeight: 8.0, // 0 to 15 meters
+  clippingHeight: 8.0,
   setClippingHeight: (height) => set({ clippingHeight: height }),
 
   environmentPreset: 'city',
@@ -49,6 +58,14 @@ export const useTwinStore = create((set) => ({
     const meta = SCENE_GRAPH[graphKey] || node
     set({ selectedNode: { ...node, ...meta } })
   },
+
+  // Annotations List
+  annotations: annotationManager.getAnnotations(),
+  setAnnotations: (list) => set({ annotations: list }),
+
+  // AI Copilot Modal
+  aiCopilotOpen: false,
+  toggleAICopilot: () => set((state) => ({ aiCopilotOpen: !state.aiCopilotOpen })),
 
   // Panel Visibilities
   sidebarOpen: true,

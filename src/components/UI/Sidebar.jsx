@@ -10,6 +10,8 @@ export function Sidebar() {
   const toggleHotspots = useTwinStore((state) => state.toggleHotspots)
   const showTrees = useTwinStore((state) => state.showTrees)
   const toggleTrees = useTwinStore((state) => state.toggleTrees)
+  const showAnnotations = useTwinStore((state) => state.showAnnotations)
+  const toggleAnnotations = useTwinStore((state) => state.toggleAnnotations)
   const wireframeMode = useTwinStore((state) => state.wireframeMode)
   const toggleWireframe = useTwinStore((state) => state.toggleWireframe)
   const showPerfStats = useTwinStore((state) => state.showPerfStats)
@@ -86,6 +88,10 @@ export function Sidebar() {
         <label className="toggle-row">
           <span>3D Hotspots</span>
           <input type="checkbox" checked={showHotspots} onChange={toggleHotspots} />
+        </label>
+        <label className="toggle-row">
+          <span>3D Spatial Notes</span>
+          <input type="checkbox" checked={showAnnotations} onChange={toggleAnnotations} />
         </label>
         <label className="toggle-row">
           <span>Campus Foliage</span>

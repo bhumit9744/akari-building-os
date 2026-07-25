@@ -10,6 +10,7 @@ import { Roads } from '../../world/Roads/Roads'
 import { Trees } from '../../world/Trees/Trees'
 import { Building } from '../../world/Building/Building'
 import { Hotspots } from '../../world/Hotspots/Hotspots'
+import { Annotations } from '../../world/Annotations/Annotations'
 import { CanvasErrorBoundary } from './CanvasErrorBoundary'
 
 export function TwinCanvas() {
@@ -31,6 +32,7 @@ export function TwinCanvas() {
             <Trees />
             <Building />
             <Hotspots />
+            <Annotations />
             <CameraController />
             <PostProcessing />
           </Suspense>
