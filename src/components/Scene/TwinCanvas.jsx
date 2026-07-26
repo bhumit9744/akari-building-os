@@ -5,11 +5,14 @@ import { PostProcessing } from './PostProcessing'
 import { PerformanceStats } from '../../engine/performance/PerformanceStats'
 import { SectionClipping } from '../../engine/renderer/SectionClipping'
 import { SkySystem } from '../../engine/environment/SkySystem'
+import { HDRManager } from '../../engine/environment/HDRManager'
 import { GLBModel } from '../../engine/loaders/GLBModel'
 import { Ground } from '../../world/Ground/Ground'
 import { Roads } from '../../world/Roads/Roads'
 import { Trees } from '../../world/Trees/Trees'
 import { Vehicles } from '../../world/Vehicles/Vehicles'
+import { InteriorLighting } from '../../world/Lighting/InteriorLighting'
+import { AmbientAnimations } from '../../world/Effects/AmbientAnimations'
 import { Hotspots } from '../../world/Hotspots/Hotspots'
 import { Annotations } from '../../world/Annotations/Annotations'
 import { CanvasErrorBoundary } from './CanvasErrorBoundary'
@@ -28,10 +31,13 @@ export function TwinCanvas() {
             <PerformanceStats />
             <SectionClipping />
             <SkySystem />
+            <HDRManager />
             <Ground />
             <Roads />
             <Trees />
             <Vehicles />
+            <InteriorLighting />
+            <AmbientAnimations />
             <GLBModel url="/models/building.glb" />
             <Hotspots />
             <Annotations />
