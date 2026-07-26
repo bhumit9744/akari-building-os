@@ -8,6 +8,10 @@ export const useTwinStore = create((set) => ({
   activeCampus: CAMPUS_REGISTRY['akari-hq'],
   setActiveCampus: (campus) => set({ activeCampus: campus }),
 
+  // Asset Metadata (Populated by Asset Normalization Pipeline)
+  activeAssetInfo: null,
+  setActiveAssetInfo: (info) => set({ activeAssetInfo: info }),
+
   // 24-Hour Environment Time State (Default 14:00 PM)
   timeOfDay: 14.0,
   isNight: false,

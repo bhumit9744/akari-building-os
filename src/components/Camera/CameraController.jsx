@@ -9,13 +9,17 @@ export function CameraController() {
   const { camera } = useThree()
   const cameraMode = useTwinStore((state) => state.cameraMode)
   const selectedNode = useTwinStore((state) => state.selectedNode)
+  const activeAssetInfo = useTwinStore((state) => state.activeAssetInfo)
+
+  // Dynamic Camera Orbit Distance based on Bounding Sphere Radius
+  const r = activeAssetInfo ? activeAssetInfo.radius : 18
 
   const animateCameraTo = (
     posX,
     posY,
     posZ,
     targetX = 0,
-    targetY = 4,
+    targetY = r * 0.25,
     targetZ = 0,
     duration = 1.8,
   ) => {
@@ -42,25 +46,25 @@ export function CameraController() {
     })
   }
 
-  // Preset Views for Aligned Villa
+  // Model-Independent Preset Views
   useEffect(() => {
     if (selectedNode) return
 
     if (cameraMode === 'top') {
-      animateCameraTo(0, 50, 0.1, 0, 0, 0)
+      animateCameraTo(0, r * 2.8, 0.1, 0, 0, 0)
     } else if (cameraMode === 'front') {
-      animateCameraTo(0, 10, 38, 0, 4, 0)
+      animateCameraTo(0, r * 0.6, r * 2.1, 0, r * 0.25, 0)
     } else if (cameraMode === 'orbit') {
-      animateCameraTo(25, 20, 30, 0, 4, 0)
+      animateCameraTo(r * 1.5, r * 1.1, r * 1.6, 0, r * 0.25, 0)
     }
-  }, [cameraMode])
+  }, [cameraMode, r])
 
   // Selected Node Focus
   useEffect(() => {
     if (!selectedNode) return
 
-    let targetPos = [0, 4, 0]
-    let camOffset = [16, 8, 16]
+    let targetPos = [0, r * 0.25, 0]
+    let camOffset = [r * 0.9, r * 0.45, r * 0.9]
 
     if (selectedNode.position) {
       targetPos = selectedNode.position
@@ -77,7 +81,7 @@ export function CameraController() {
       targetPos[2],
       1.8,
     )
-  }, [selectedNode])
+  }, [selectedNode, r])
 
   // Auto-Tour Rotation
   useFrame(() => {
@@ -93,8 +97,8 @@ export function CameraController() {
       enableDamping
       dampingFactor={0.05}
       maxPolarAngle={Math.PI / 2 - 0.02}
-      minDistance={5}
-      maxDistance={150}
+      minDistance={r * 0.25}
+      maxDistance={r * 8.0}
       makeDefault
     />
   )
