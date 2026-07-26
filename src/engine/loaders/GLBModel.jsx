@@ -1,13 +1,10 @@
 import { useEffect, useState } from 'react'
 import { Html } from '@react-three/drei'
+import * as THREE from 'three'
 import { assetManager } from './AssetManager'
 import { Building } from '../../world/Building/Building'
 
-export function GLBModel({
-  url,
-  position = [25, -12, 15],
-  scale = [0.05, 0.05, 0.05],
-}) {
+export function GLBModel({ url }) {
   const [model, setModel] = useState(null)
   const [loading, setLoading] = useState(false)
   const [progress, setProgress] = useState(0)
@@ -20,12 +17,30 @@ export function GLBModel({
     assetManager
       .loadGLTF(url, (p) => setProgress(Math.round(p * 100)))
       .then((scene) => {
+        // Enable shadows on all child meshes
         scene.traverse((child) => {
           if (child.isMesh) {
             child.castShadow = true
             child.receiveShadow = true
           }
         })
+
+        // Compute exact bounding box of the loaded GLB model
+        const box = new THREE.Box3().setFromObject(scene)
+        const center = box.getCenter(new THREE.Vector3())
+        const size = box.getSize(new THREE.Vector3())
+
+        // Normalize scale to fit 28 units (perfect size for campus grounds)
+        const maxDim = Math.max(size.x, size.y, size.z)
+        const scaleFactor = 28 / (maxDim || 1)
+
+        // Center X and Z around (0,0), and snap the bottom of the villa to Y = 0 ground level
+        scene.position.x = -center.x * scaleFactor
+        scene.position.y = -box.min.y * scaleFactor
+        scene.position.z = -center.z * scaleFactor
+
+        scene.scale.set(scaleFactor, scaleFactor, scaleFactor)
+
         setModel(scene)
         setLoading(false)
       })
@@ -57,7 +72,7 @@ export function GLBModel({
           }}
         >
           <span style={{ fontSize: '20px' }}>📦</span>
-          <span>Loading Coastal Villa Asset ({progress}%)...</span>
+          <span>Aligning Coastal Villa Model ({progress}%)...</span>
         </div>
       </Html>
     )
@@ -69,5 +84,5 @@ export function GLBModel({
 
   if (!model) return null
 
-  return <primitive object={model} position={position} scale={scale} />
+  return <primitive object={model} />
 }

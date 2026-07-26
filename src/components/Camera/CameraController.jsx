@@ -15,7 +15,7 @@ export function CameraController() {
     posY,
     posZ,
     targetX = 0,
-    targetY = 5,
+    targetY = 4,
     targetZ = 0,
     duration = 1.8,
   ) => {
@@ -42,16 +42,16 @@ export function CameraController() {
     })
   }
 
-  // Preset Views for Coastal Villa
+  // Preset Views for Aligned Villa
   useEffect(() => {
     if (selectedNode) return
 
     if (cameraMode === 'top') {
-      animateCameraTo(-20, 170, -20, 0, 0, 0)
+      animateCameraTo(0, 50, 0.1, 0, 0, 0)
     } else if (cameraMode === 'front') {
-      animateCameraTo(0, 40, 160, 0, 5, 0)
+      animateCameraTo(0, 10, 38, 0, 4, 0)
     } else if (cameraMode === 'orbit') {
-      animateCameraTo(140, 90, 140, 0, 5, 0)
+      animateCameraTo(25, 20, 30, 0, 4, 0)
     }
   }, [cameraMode])
 
@@ -59,8 +59,8 @@ export function CameraController() {
   useEffect(() => {
     if (!selectedNode) return
 
-    let targetPos = [0, 5, 0]
-    let camOffset = [45, 25, 45]
+    let targetPos = [0, 4, 0]
+    let camOffset = [16, 8, 16]
 
     if (selectedNode.position) {
       targetPos = selectedNode.position
@@ -82,7 +82,7 @@ export function CameraController() {
   // Auto-Tour Rotation
   useFrame(() => {
     if (cameraMode === 'tour' && controlsRef.current) {
-      controlsRef.current.azimuthAngle += 0.002
+      controlsRef.current.azimuthAngle += 0.003
       controlsRef.current.update()
     }
   })
@@ -92,9 +92,9 @@ export function CameraController() {
       ref={controlsRef}
       enableDamping
       dampingFactor={0.05}
-      maxPolarAngle={Math.PI / 2 - 0.01}
-      minDistance={10}
-      maxDistance={600}
+      maxPolarAngle={Math.PI / 2 - 0.02}
+      minDistance={5}
+      maxDistance={150}
       makeDefault
     />
   )
