@@ -10,8 +10,15 @@ export function CameraController() {
   const cameraMode = useTwinStore((state) => state.cameraMode)
   const selectedNode = useTwinStore((state) => state.selectedNode)
 
-  // Smooth camera position transition via GSAP
-  const animateCameraTo = (posX, posY, posZ, targetX = 0, targetY = 5, targetZ = 0, duration = 1.6) => {
+  const animateCameraTo = (
+    posX,
+    posY,
+    posZ,
+    targetX = 0,
+    targetY = 5,
+    targetZ = 0,
+    duration = 1.8,
+  ) => {
     if (!controlsRef.current) return
 
     gsap.killTweensOf(camera.position)
@@ -35,25 +42,25 @@ export function CameraController() {
     })
   }
 
-  // Handle Preset Changes
+  // Preset Views for Coastal Villa
   useEffect(() => {
-    if (selectedNode) return // Let node selection handle camera focus if node is active
+    if (selectedNode) return
 
     if (cameraMode === 'top') {
-      animateCameraTo(0, 50, 0.1, 0, 0, 0)
+      animateCameraTo(-20, 170, -20, 0, 0, 0)
     } else if (cameraMode === 'front') {
-      animateCameraTo(0, 10, 38, 0, 5, 0)
+      animateCameraTo(0, 40, 160, 0, 5, 0)
     } else if (cameraMode === 'orbit') {
-      animateCameraTo(25, 20, 30, 0, 5, 0)
+      animateCameraTo(140, 90, 140, 0, 5, 0)
     }
   }, [cameraMode])
 
-  // Handle Selected Node / Hotspot Focus
+  // Selected Node Focus
   useEffect(() => {
     if (!selectedNode) return
 
     let targetPos = [0, 5, 0]
-    let camOffset = [16, 8, 16]
+    let camOffset = [45, 25, 45]
 
     if (selectedNode.position) {
       targetPos = selectedNode.position
@@ -72,10 +79,10 @@ export function CameraController() {
     )
   }, [selectedNode])
 
-  // Auto-Tour Slow Rotation
+  // Auto-Tour Rotation
   useFrame(() => {
     if (cameraMode === 'tour' && controlsRef.current) {
-      controlsRef.current.azimuthAngle += 0.003
+      controlsRef.current.azimuthAngle += 0.002
       controlsRef.current.update()
     }
   })
@@ -85,9 +92,9 @@ export function CameraController() {
       ref={controlsRef}
       enableDamping
       dampingFactor={0.05}
-      maxPolarAngle={Math.PI / 2 - 0.02}
-      minDistance={4}
-      maxDistance={140}
+      maxPolarAngle={Math.PI / 2 - 0.01}
+      minDistance={10}
+      maxDistance={600}
       makeDefault
     />
   )

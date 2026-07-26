@@ -11,53 +11,53 @@ class CameraDirector {
   getWaypoints() {
     return [
       {
-        name: '🎬 Product Reveal: Sunrise Campus Overview',
-        cam: [0, 48, 0.1],
-        target: [0, 0, 0],
-        duration: 4,
-        timeOfDay: 6.5,
+        name: '🎬 Hero Coastal Villa Flyover',
+        cam: [140, 90, 140],
+        target: [0, 5, 0],
+        duration: 4.5,
+        timeOfDay: 7.0,
       },
       {
-        name: '🏙️ Midday Architecture & Plaza Arrival',
-        cam: [0, 8, 30],
-        target: [0, 3, 0],
+        name: '🌊 Ocean Frontage & Horizon View',
+        cam: [0, 40, 160],
+        target: [0, 5, 0],
         duration: 4.5,
         timeOfDay: 12.0,
       },
       {
-        name: '🏢 Level 1 — Lobby & Security Turnstiles',
-        cam: [-12, 5, 12],
-        target: [-4, 2, 3],
+        name: '🏊 Pool Deck & Lounger Patio',
+        cam: [25, 12, 25],
+        target: [5, 2, 12],
         duration: 4,
-        timeOfDay: 13.5,
+        timeOfDay: 14.0,
       },
       {
-        name: '🖥️ Level 2 — NOC Server Room AI Compute',
-        cam: [14, 8, -10],
-        target: [3, 5.5, -2],
-        duration: 4,
-        timeOfDay: 15.5,
-      },
-      {
-        name: '☀️ Sunset Rooftop — Solar Generation Peak',
-        cam: [0, 18, 14],
-        target: [0, 12, 0],
+        name: '🏡 Hillside Villa Left Perspective',
+        cam: [-180, 60, 60],
+        target: [0, 5, 0],
         duration: 4.5,
+        timeOfDay: 16.5,
+      },
+      {
+        name: '🪴 Bonsai Zen Rock Garden',
+        cam: [35, 15, -20],
+        target: [14, 1, -8],
+        duration: 4,
         timeOfDay: 17.8,
       },
       {
-        name: '🌃 Dusk Transition — Night City Illumination',
-        cam: [30, 25, 30],
+        name: '☀️ Rooftop Sky Terrace & Solar Array',
+        cam: [-20, 170, -20],
+        target: [0, 14, -2],
+        duration: 4.5,
+        timeOfDay: 18.5,
+      },
+      {
+        name: '🌃 Dusk Villa Illumination & City Lights',
+        cam: [120, 70, 120],
         target: [0, 5, 0],
         duration: 5,
         timeOfDay: 21.5,
-      },
-      {
-        name: '🌌 Akari Engine v3.6 — Full Platform Overview',
-        cam: [25, 20, 30],
-        target: [0, 5, 0],
-        duration: 4,
-        timeOfDay: 12.0,
       },
     ]
   }
@@ -85,7 +85,8 @@ class CameraDirector {
           timeController.setTimeOfDay(wp.timeOfDay)
           store.setSelectedNode({
             name: wp.name,
-            description: `Film Director Sequence: ${wp.name}`,
+            description: `Villa Cinematic Reveal: ${wp.name}`,
+            position: wp.target,
           })
         },
       })

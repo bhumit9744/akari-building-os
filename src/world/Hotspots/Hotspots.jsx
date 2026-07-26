@@ -5,52 +5,58 @@ export function Hotspots() {
   const showHotspots = useTwinStore((state) => state.showHotspots)
   const selectedNode = useTwinStore((state) => state.selectedNode)
   const setSelectedNode = useTwinStore((state) => state.setSelectedNode)
-  const setActiveFloor = useTwinStore((state) => state.setActiveFloor)
   const setCameraMode = useTwinStore((state) => state.setCameraMode)
 
   if (!showHotspots) return null
 
   const hotspotList = [
     {
-      id: 'lobby',
-      label: 'Main Lobby',
+      id: 'villa-pool',
+      label: '🏊 Pool Deck & Lounge',
       level: 'L1',
-      position: [-4, 2.2, 3],
-      description: 'Visitor reception, security turnstiles & access logging.',
-      temp: '21.5 °C',
-      occupants: 18,
+      position: [5, 2, 12],
+      description: 'Infinity oceanfront pool deck, loungers & outdoor dining patio.',
+      temp: '24.2 °C',
+      occupants: 6,
     },
     {
-      id: 'ops',
-      label: 'NOC & Ops Center',
+      id: 'villa-living',
+      label: '🛋️ Ocean View Living Suite',
+      level: 'L1',
+      position: [0, 5, 2],
+      description: 'Glass-walled main atrium, fireplace lounge & smart lighting hub.',
+      temp: '21.8 °C',
+      occupants: 12,
+    },
+    {
+      id: 'villa-master',
+      label: '🛏️ Upper Master Balcony',
       level: 'L2',
-      position: [3, 5.5, -2],
-      description: 'Network operations center, server racks & IoT gateways.',
-      temp: '19.8 °C',
-      occupants: 34,
+      position: [-4, 9, -2],
+      description: 'Private master bedroom suite with panoramic coastal views.',
+      temp: '22.0 °C',
+      occupants: 2,
     },
     {
-      id: 'ai-hub',
-      label: 'AI & Executive Hub',
-      level: 'L3',
-      position: [-2, 9.0, 1],
-      description: 'Compute cluster control room & executive briefing suite.',
-      temp: '22.1 °C',
-      occupants: 22,
+      id: 'villa-garden',
+      label: '🪴 Hillside Bonsai Garden',
+      level: 'Ground',
+      position: [14, 1, -8],
+      description: 'Zen rock garden, Japanese bonsai trees & automated drip irrigation.',
+      moisture: '88% Optimal',
     },
     {
-      id: 'solar',
-      label: 'Solar Array',
+      id: 'villa-roof',
+      label: '☀️ Rooftop Sky Terrace',
       level: 'Roof',
-      position: [0, 12.0, 0],
-      description: '450W Monocrystalline PV solar panel matrix & inverter.',
+      position: [0, 14, -2],
+      description: 'Solar micro-inverter matrix & rooftop star observation lounge.',
       output: '9.4 kW',
     },
   ]
 
   const handleSelect = (spot) => {
     setSelectedNode(spot)
-    setActiveFloor(spot.level)
     setCameraMode('orbit')
   }
 
@@ -60,7 +66,7 @@ export function Hotspots() {
         const isSelected = selectedNode?.id === spot.id
 
         return (
-          <Html key={spot.id} position={spot.position} center distanceFactor={22}>
+          <Html key={spot.id} position={spot.position} center distanceFactor={45}>
             <div
               onClick={() => handleSelect(spot)}
               style={{
@@ -83,7 +89,6 @@ export function Hotspots() {
                 transition: 'all 0.2s ease',
               }}
             >
-              <span style={{ fontSize: '12px' }}>📍</span>
               <span>{spot.label}</span>
             </div>
           </Html>

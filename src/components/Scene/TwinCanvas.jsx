@@ -23,7 +23,7 @@ export function TwinCanvas() {
       <CanvasErrorBoundary>
         <Canvas
           shadows
-          camera={{ position: [25, 20, 30], fov: 45 }}
+          camera={{ position: [140, 90, 140], fov: 42, near: 0.1, far: 2000 }}
           gl={{ antialias: true, alpha: false, powerPreference: 'high-performance' }}
         >
           <color attach="background" args={['#090d16']} />
