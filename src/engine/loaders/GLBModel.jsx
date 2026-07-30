@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import { Html } from '@react-three/drei'
 import * as THREE from 'three'
 import { assetManager } from './AssetManager'
-import { Building } from '../../world/Building/Building'
+import { Building } from '../core/Building'
 import { useTwinStore } from '../../store/useTwinStore'
 
 export function GLBModel({ url, targetSize = 30 }) {

@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { useTwinStore } from '../../store/useTwinStore'
-import { ExportSystem } from '../../viewer/export/ExportSystem'
+import { ExportSystem } from '../../engine/export/ExportSystem'
 
 export function ShareModal() {
   const shareModalOpen = useTwinStore((state) => state.shareModalOpen)

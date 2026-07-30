@@ -1,7 +1,7 @@
 import { Html } from '@react-three/drei'
 import { useTwinStore } from '../../store/useTwinStore'
 
-export function Hotspots() {
+export function HotspotEngine() {
   const showHotspots = useTwinStore((state) => state.showHotspots)
   const selectedNode = useTwinStore((state) => state.selectedNode)
   const setSelectedNode = useTwinStore((state) => state.setSelectedNode)

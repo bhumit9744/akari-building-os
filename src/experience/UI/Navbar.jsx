@@ -1,6 +1,6 @@
 import { useTwinStore } from '../../store/useTwinStore'
 import { projectManager, CAMPUS_REGISTRY } from '../../services/projects/ProjectManager'
-import { cameraDirector } from '../../engine/camera/CameraDirector'
+import { cameraDirector } from '../../engine/presentation/PresentationEngine'
 
 export function Navbar() {
   const cameraMode = useTwinStore((state) => state.cameraMode)

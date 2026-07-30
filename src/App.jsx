@@ -1,14 +1,14 @@
-import { TwinCanvas } from './components/Scene/TwinCanvas'
-import { Navbar } from './components/UI/Navbar'
-import { Sidebar } from './components/UI/Sidebar'
-import { InfoPanel } from './components/UI/InfoPanel'
-import { TimeMachineSlider } from './components/UI/TimeMachineSlider'
-import { TimeOfDaySlider } from './components/UI/TimeOfDaySlider'
-import { AICopilotModal } from './components/UI/AICopilotModal'
-import { ShareModal } from './components/UI/ShareModal'
-import { TourBuilder } from './viewer/walkthrough/TourBuilder'
-import { MaterialConfigurator } from './viewer/configurator/MaterialConfigurator'
-import { HotspotModal } from './viewer/hotspots/HotspotModal'
+import { Viewer } from './experience/Viewer/Viewer'
+import { Navbar } from './experience/UI/Navbar'
+import { Sidebar } from './experience/UI/Sidebar'
+import { InfoPanel } from './experience/UI/InfoPanel'
+import { TimeMachineSlider } from './experience/UI/TimeMachineSlider'
+import { TimeOfDaySlider } from './experience/UI/TimeOfDaySlider'
+import { AICopilotModal } from './experience/UI/AICopilotModal'
+import { ShareModal } from './experience/ShareExport/ShareModal'
+import { TourBuilder } from './experience/Tour/TourBuilder'
+import { MaterialConfigurator } from './experience/Materials/MaterialConfigurator'
+import { HotspotModal } from './experience/Hotspots/HotspotModal'
 
 function App() {
   return (
@@ -25,7 +25,7 @@ function App() {
       <MaterialConfigurator />
       <HotspotModal />
 
-      <TwinCanvas />
+      <Viewer />
     </main>
   )
 }
