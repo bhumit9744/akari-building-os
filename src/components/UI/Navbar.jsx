@@ -63,6 +63,12 @@ export function Navbar() {
             Orbit
           </button>
           <button
+            className={`preset-btn ${cameraMode === 'firstPerson' ? 'active' : ''}`}
+            onClick={() => handleModeChange('firstPerson')}
+          >
+            🚶 Walk
+          </button>
+          <button
             className={`preset-btn ${cameraMode === 'top' ? 'active' : ''}`}
             onClick={() => handleModeChange('top')}
           >
@@ -81,6 +87,12 @@ export function Navbar() {
       </div>
 
       <div className="navbar-right">
+        <button className="copilot-btn" onClick={useTwinStore((state) => state.toggleConfigurator)} style={{ marginRight: '8px', background: '#334155' }}>
+          🎨 Configurator
+        </button>
+        <button className="copilot-btn" onClick={useTwinStore((state) => state.toggleShareModal)} style={{ marginRight: '8px', background: '#2563eb' }}>
+          🔗 Share
+        </button>
         <button className="copilot-btn" onClick={toggleAICopilot}>
           🤖 AI Copilot
         </button>

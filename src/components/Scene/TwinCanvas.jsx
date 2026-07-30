@@ -17,7 +17,12 @@ import { Hotspots } from '../../world/Hotspots/Hotspots'
 import { Annotations } from '../../world/Annotations/Annotations'
 import { CanvasErrorBoundary } from './CanvasErrorBoundary'
 
+import { useTwinStore } from '../../store/useTwinStore'
+import { FirstPersonControls } from '../../engine/controls/FirstPersonControls'
+
 export function TwinCanvas() {
+  const cameraMode = useTwinStore((state) => state.cameraMode)
+
   return (
     <div style={{ width: '100vw', height: '100vh', position: 'relative', overflow: 'hidden' }}>
       <CanvasErrorBoundary>
@@ -42,6 +47,7 @@ export function TwinCanvas() {
             <Hotspots />
             <Annotations />
             <CameraController />
+            {cameraMode === 'firstPerson' && <FirstPersonControls />}
             <PostProcessing />
           </Suspense>
         </Canvas>

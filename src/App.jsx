@@ -5,6 +5,10 @@ import { InfoPanel } from './components/UI/InfoPanel'
 import { TimeMachineSlider } from './components/UI/TimeMachineSlider'
 import { TimeOfDaySlider } from './components/UI/TimeOfDaySlider'
 import { AICopilotModal } from './components/UI/AICopilotModal'
+import { ShareModal } from './components/UI/ShareModal'
+import { TourBuilder } from './viewer/walkthrough/TourBuilder'
+import { MaterialConfigurator } from './viewer/configurator/MaterialConfigurator'
+import { HotspotModal } from './viewer/hotspots/HotspotModal'
 
 function App() {
   return (
@@ -15,6 +19,12 @@ function App() {
       <AICopilotModal />
       <TimeOfDaySlider />
       <TimeMachineSlider />
+      
+      <ShareModal />
+      <TourBuilder />
+      <MaterialConfigurator />
+      <HotspotModal />
+
       <TwinCanvas />
     </main>
   )

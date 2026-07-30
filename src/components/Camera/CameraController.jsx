@@ -91,6 +91,10 @@ export function CameraController() {
     }
   })
 
+  if (cameraMode === 'firstPerson') {
+    return null
+  }
+
   return (
     <OrbitControls
       ref={controlsRef}

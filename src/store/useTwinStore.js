@@ -12,6 +12,34 @@ export const useTwinStore = create((set) => ({
   activeAssetInfo: null,
   setActiveAssetInfo: (info) => set({ activeAssetInfo: info }),
 
+  // Material Configurator State
+  materialOverrides: {
+    wallColor: '#f8fafc',
+    floorMaterial: 'wood', // 'wood' | 'marble' | 'concrete'
+    woodFinish: 'oak',
+  },
+  setMaterialOverride: (key, value) =>
+    set((state) => ({
+      materialOverrides: { ...state.materialOverrides, [key]: value },
+    })),
+  configuratorOpen: false,
+  toggleConfigurator: () => set((state) => ({ configuratorOpen: !state.configuratorOpen })),
+
+  // Tour Builder State
+  customTourWaypoints: [],
+  addTourWaypoint: (wp) =>
+    set((state) => ({
+      customTourWaypoints: [...state.customTourWaypoints, wp],
+    })),
+
+  // Share & Export Modal State
+  shareModalOpen: false,
+  toggleShareModal: () => set((state) => ({ shareModalOpen: !state.shareModalOpen })),
+
+  // Hotspot Media Modal State
+  activeHotspotMedia: null,
+  setActiveHotspotMedia: (spot) => set({ activeHotspotMedia: spot }),
+
   // 24-Hour Environment Time State (Default 14:00 PM)
   timeOfDay: 14.0,
   isNight: false,
@@ -25,7 +53,7 @@ export const useTwinStore = create((set) => ({
     })),
 
   // Camera & Navigation State
-  cameraMode: 'orbit', // 'orbit' | 'top' | 'front' | 'tour'
+  cameraMode: 'orbit', // 'orbit' | 'top' | 'front' | 'firstPerson' | 'tour'
   setCameraMode: (mode) => set({ cameraMode: mode }),
 
   // Layer Toggles

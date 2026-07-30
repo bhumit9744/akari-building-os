@@ -1,0 +1,5 @@
+# Vercel deployment ignore rules
+public/models/*.glb
+public/models/*.gltf
+dist
+*.log
