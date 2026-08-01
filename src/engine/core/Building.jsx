@@ -34,28 +34,9 @@ function BuildingFloor({ level, graphId, yPos, height, label, isSelected, isHove
         />
       </mesh>
 
-      {/* Glass Facade Curtain Wall */}
-      <mesh position={[0, height / 2, 0]}>
-        <boxGeometry args={[15.6, height - 0.4, 11.6]} />
-        <meshPhysicalMaterial
-          {...(isHovered ? materials.glassHover : materials.glass)}
-          clippingPlanes={clippingPlanes}
-          wireframe={wireframe}
-        />
-      </mesh>
 
-      {/* Structural Steel Columns */}
-      {[-6.5, 6.5].map((x) =>
-        [-4.5, 4.5].map((z) => (
-          <mesh key={`${x}-${z}`} position={[x, height / 2, z]} castShadow>
-            <cylinderGeometry args={[0.25, 0.25, height - 0.4, 16]} />
-            <meshStandardMaterial
-              {...materials.steelColumn}
-              clippingPlanes={clippingPlanes}
-            />
-          </mesh>
-        )),
-      )}
+
+      {/* Structural Steel Columns Removed */}
 
       {/* Level Label Overlay Pin */}
       <Html position={[9, height / 2, 0]} center distanceFactor={28}>

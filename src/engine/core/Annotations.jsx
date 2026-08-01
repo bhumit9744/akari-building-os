@@ -16,7 +16,7 @@ export function Annotations() {
         const badgeColor = ann.severity === 'HIGH' ? '#ef4444' : ann.severity === 'MEDIUM' ? '#f59e0b' : '#3b82f6'
 
         return (
-          <Html key={ann.id} position={ann.position} center distanceFactor={22}>
+          <Html key={ann.id} position={ann.position} center>
             <div style={{ position: 'relative' }}>
               <div
                 onClick={() => setActiveAnn(isOpen ? null : ann)}

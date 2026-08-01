@@ -1,4 +1,4 @@
-import { EffectComposer, Bloom, Vignette } from '@react-three/postprocessing'
+import { EffectComposer, Bloom, Vignette, ToneMapping } from '@react-three/postprocessing'
 import { ToneMappingMode } from 'postprocessing'
 import { useTwinStore } from '../../store/useTwinStore'
 
@@ -6,7 +6,8 @@ export function PostProcessing() {
   const environmentPreset = useTwinStore((state) => state.environmentPreset)
 
   return (
-    <EffectComposer disableNormalPass>
+    <EffectComposer>
+      <ToneMapping mode={ToneMappingMode.ACES_FILMIC} />
       <Bloom
         intensity={environmentPreset === 'night' ? 1.4 : 0.6}
         luminanceThreshold={0.7}

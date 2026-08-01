@@ -18,11 +18,16 @@ export function GLBModel({ url, targetSize = 30 }) {
     assetManager
       .loadGLTF(url, (p) => setProgress(Math.round(p * 100)))
       .then((scene) => {
-        // Enable shadows on all child meshes
+        // Enable shadows on all child meshes and hide middle walls
         scene.traverse((child) => {
           if (child.isMesh) {
             child.castShadow = true
             child.receiveShadow = true
+            
+            // Remove the middle wall
+            if (child.name && child.name.toLowerCase().includes('rock_wall')) {
+              child.visible = false
+            }
           }
         })
 

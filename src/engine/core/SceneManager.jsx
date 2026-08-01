@@ -24,7 +24,7 @@ export function SceneManager() {
       <Vehicles />
       <InteriorLighting />
       <AmbientAnimations />
-      <GLBModel url="/models/building.glb" />
+      <GLBModel url="/models/modern_coastal_hillside_villa.glb" />
       <HotspotEngine />
       <Annotations />
     </>

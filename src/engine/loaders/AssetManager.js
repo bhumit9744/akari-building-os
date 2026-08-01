@@ -20,7 +20,7 @@ class AssetManager {
    */
   async loadGLTF(url, onProgress) {
     if (this.cache.has(url)) {
-      return this.cache.get(url).clone()
+      return this.cache.get(url)
     }
 
     return new Promise((resolve, reject) => {
@@ -28,7 +28,7 @@ class AssetManager {
         url,
         (gltf) => {
           this.cache.set(url, gltf.scene)
-          resolve(gltf.scene.clone())
+          resolve(gltf.scene)
         },
         (xhr) => {
           if (onProgress && xhr.total > 0) {

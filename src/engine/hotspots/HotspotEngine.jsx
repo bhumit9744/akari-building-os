@@ -72,7 +72,7 @@ export function HotspotEngine() {
         const isSelected = selectedNode?.id === spot.id
 
         return (
-          <Html key={spot.id} position={spot.position} center distanceFactor={40}>
+          <Html key={spot.id} position={spot.position} center>
             <div
               onClick={() => handleSelect(spot)}
               style={{

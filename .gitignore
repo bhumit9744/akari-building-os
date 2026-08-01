@@ -7,14 +7,20 @@ yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
 
-node_modules
+# node_modules commented out by request
 dist
 dist-ssr
 *.local
 
-# Large 3D Assets
-public/models/*.glb
-public/models/*.gltf
+# Large 3D Assets & Videos
+*.glb
+*.gltf
+*.obj
+*.fbx
+*.mp4
+*.mov
+*.avi
+*.mkv
 
 # Editor directories and files
 .vscode/*

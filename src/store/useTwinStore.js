@@ -112,11 +112,11 @@ export const useTwinStore = create((set) => ({
   toggleAICopilot: () => set((state) => ({ aiCopilotOpen: !state.aiCopilotOpen })),
 
   // Panel Visibilities
+  activePanel: null,
+  setActivePanel: (panelId) => set((state) => ({ activePanel: state.activePanel === panelId ? null : panelId })),
+  
   sidebarOpen: true,
   toggleSidebar: () => set((state) => ({ sidebarOpen: !state.sidebarOpen })),
-
-  infoPanelOpen: true,
-  toggleInfoPanel: () => set((state) => ({ infoPanelOpen: !state.infoPanelOpen })),
 
   // IoT Telemetry Stream
   telemetry: {
